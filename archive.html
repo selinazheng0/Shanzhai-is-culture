@@ -24,6 +24,60 @@
         <a href="references.html">References</a>
       </div> 
     <h1>This is a visual archive of the ephemera related to the shanzhai phenomenon. Unlike most online forums that feature shanzhai, this page is a place of appreciation instead of ridicule.</h1>
+   
+<input type="file" id="myFile" multiple onchange="showFileInfo()">
+<button onclick="uploadFiles()">Upload to Server</button>
+
+<p id="demo"></p>
+
+<script>
+// SHOW FILE INFO (your original functionality, cleaned up)
+function showFileInfo() {
+  const input = document.getElementById("myFile");
+  let txt = "";
+
+  if (input.files.length === 0) {
+    txt = "Select one or more files.";
+  } else {
+    for (let i = 0; i < input.files.length; i++) {
+      const file = input.files[i];
+
+      txt += "<br><strong>" + (i + 1) + ". file</strong><br>";
+      txt += "name: " + file.name + "<br>";
+      txt += "size: " + file.size + " bytes<br>";
+    }
+  }
+
+  document.getElementById("demo").innerHTML = txt;
+}
+
+// UPLOAD FILES TO SERVER
+async function uploadFiles() {
+  const input = document.getElementById("myFile");
+
+  if (!input.files.length) {
+    alert("Select files first");
+    return;
+  }
+
+  for (let i = 0; i < input.files.length; i++) {
+    const file = input.files[i];
+
+    const arrayBuffer = await file.arrayBuffer();
+
+    await fetch('/uploadFile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'x-file-name': file.name
+      },
+      body: arrayBuffer
+    });
+  }
+
+  alert("Files uploaded to server");
+}
+</script>
    <div class="gallery-grid">
         <div>
             <a href="">
