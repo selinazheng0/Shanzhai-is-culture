@@ -1,0 +1,247 @@
+body{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: baskerville-urw, serif;
+    font-size: small;
+    font-style: normal;
+    font-weight: 400;
+}
+.topnav{
+    background-color: black;
+    font-style: normal;
+    font-weight: 400;
+    width: 100%;
+    font-size: 1.75em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+}
+.topnav a{
+    color: white;
+    margin: 0.5em;
+    text-decoration: none;
+}
+.topnav a:hover{
+    color: #EE1C25;
+}
+.labels {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.75em;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+}
+
+.labels input[type=text] {
+    position: absolute;
+    left: 50%;
+    font-size: 1rem;
+    transform: translateX(-50%);
+    width: 20em;
+    padding: 0.5em 1em; /* adds some space inside the input */
+    border-radius: 1em; /* rounded corners */
+    border: 2px solid #000000; /* optional: visible border */
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 75%;
+    margin: auto;
+}
+.logo img{
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+    width: auto;
+    display: block;
+}
+button{
+    position: fixed;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    right: 1.5rem;
+    z-index: 2000;
+
+    width: 5rem;
+    height: 5rem;
+
+    display: flex;            
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    font-size: 2rem;
+    font-family: "source-han-serif-tc", serif;
+}
+button a{
+    color: black;
+    text-decoration: none;
+}
+h1{
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 1.5rem;
+}
+h2{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+p{
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+}
+.Librarycarousel{
+    display: flex;
+    margin-left: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 1rem;
+    scrollbar-width: none;
+}
+.Librarycarousel .item{
+    flex: 0 0 280px; /* width of each card */
+    scroll-snap-align: start;
+    margin: 1rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: black;
+    text-decoration: none;
+}
+.item a{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: black;
+    text-decoration: none;
+}
+.item a:hover{
+    color: #EE1C25;
+}
+.Librarycarousel img{
+    max-width: auto;
+    height: 20rem;
+}
+.Librarycarousel::-webkit-scrollbar{
+  display: none;
+}
+@media (max-width: 800px){
+  .Librarycarousel .item {
+    flex: 0 0 80%;
+  }
+}
+@media (max-width: 800px){
+    .Library div img{
+        width: 7em;
+        max-height: 13em;
+    }
+}
+/* This is the old styling for the library page. 
+.Library{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 1em;
+    gap: 1em;
+}
+@media (min-width: 768px){
+    .Library {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.Library div{
+    display: flex;
+    padding: 1em;
+    font-size: 1.25rem;
+    height: 16em;
+}
+.Library div img{
+    width: 9em;
+    max-height: 15em;
+}
+.Library div.description{
+    display: block;
+    margin-left: 0.5em;
+}
+.Library div.description a{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: black;
+    text-decoration: none;
+}
+.Library div.description a:hover{
+    color: #EE1C25;
+} */
+/* Gallery Page styling here */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 1em;
+    gap: 1em;
+}
+/* tablet hoizontal*/
+@media (max-width: 1280px){
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }    
+}
+/* Tablet */
+@media (max-width: 800px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* Mobile */
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.gallery-grid div{
+    padding: 1em;
+}
+.gallery-grid div img{
+    display: flex;
+    align-items: center;
+    width: 21rem;
+    height: 21rem;
+}
+/* Here is the spawn styling */
+.spawn-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* allows clicks only on images */
+}
+.spawned-img {
+  position: absolute;
+  width: 30%;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.spawned-img.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.spawned-img.hide {
+  opacity: 0;
+  transform: scale(0);
+}
+
+

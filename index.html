@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanzhai is culture</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://use.typekit.net/agd2aaq.css">
+    <script>
+  (function(d) {
+    var config = {
+      kitId: 'agd2aaq',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+</head>
+<body>
+    <div class="topnav">
+        <a href="info.html">Info</a>
+        <a href="archive.html">Gallery</a>
+        <a href="references.html">References</a>
+      </div>
+      <div class="logo">
+        <img src="images/shanzhai logo final.svg">
+      </div>
+      <div class="spawn-container"></div>
+      <script>
+const container = document.querySelector('.spawn-container');
+
+const images = [
+  'images/nenergireup.jpg',
+  'images/reginales.png',
+  'images/SA_market_2.jpg',
+];
+
+function spawnImage(src) {
+  const img = document.createElement('img');
+  img.src = src;
+  img.classList.add('spawned-img');
+
+  // random position
+  img.style.top = Math.random() * 80 + '%';
+  img.style.left = Math.random() * 80 + '%';
+
+  container.appendChild(img);
+
+  // trigger animation
+  setTimeout(() => img.classList.add('show'), 10);
+
+  // remove on click
+  img.addEventListener('click', () => {
+    img.classList.remove('show');
+    img.classList.add('hide');
+
+    setTimeout(() => {
+      img.remove();
+    }, 400);
+  });
+}
+
+// spawn all on load
+window.addEventListener('load', () => {
+  images.forEach((src, i) => {
+    setTimeout(() => spawnImage(src), i * 200);
+  });
+});
+</script>
+</body>
+</html>
