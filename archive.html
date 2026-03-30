@@ -26,9 +26,14 @@
     <h1>This is a visual archive of the ephemera related to the shanzhai phenomenon. Unlike most online forums that feature shanzhai, this page is a place of appreciation instead of ridicule.</h1>
    
 <input type="file" id="myFile" multiple onchange="showFileInfo()">
-<button onclick="uploadFiles()">Upload to Server</button>
+<label for="myFile" class="custom-file-upload">
+  Select an image file
+</label>
+  <p id="demo"></p>
 
-<p id="demo"></p>
+<button onclick="uploadFiles()"class="upload">Upload to Server</button>
+<!-- <p id="demo"></p> -->
+
 
 <script>
 // SHOW FILE INFO (your original functionality, cleaned up)
@@ -40,11 +45,8 @@ function showFileInfo() {
     txt = "Select one or more files.";
   } else {
     for (let i = 0; i < input.files.length; i++) {
-      const file = input.files[i];
-
-      txt += "<br><strong>" + (i + 1) + ". file</strong><br>";
-      txt += "name: " + file.name + "<br>";
-      txt += "size: " + file.size + " bytes<br>";
+    const file = input.files[i];
+    txt += "File " + ": " + file.name + "<br>";
     }
   }
 
@@ -64,18 +66,27 @@ async function uploadFiles() {
     const file = input.files[i];
 
     const arrayBuffer = await file.arrayBuffer();
+    console.log(file)
+    console.log(arrayBuffer)
 
-    await fetch('/uploadFile', {
+    let request = new Request('/uploadFile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/octet-stream',
         'x-file-name': file.name
       },
       body: arrayBuffer
+    })
+
+    fetch(request).then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        alert("Files uploaded to server");
+    }).error((error) =>{
+        alert("Error: " + error);
     });
   }
-
-  alert("Files uploaded to server");
 }
 </script>
    <div class="gallery-grid">
@@ -120,7 +131,7 @@ async function uploadFiles() {
             </a>
         </div>
    </div>
-    <button>
+    <button class="homebutton">
         <a href="index.html">
             山寨
         </a>

@@ -1,48 +1,37 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const fs = require('fs'); // REQUIRED
+const fs = require('fs');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+const bodyParser = require('body-parser');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-const app = express();
+var app = express();
 
-//
-// VIEW ENGINE
-//
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+const options = {
+  type: 'application/octet-stream',
+};
+app.use(bodyParser.raw(options));
 
-//
-// MIDDLEWARE
-//
 app.use(logger('dev'));
-
-// IMPORTANT: this allows raw file uploads
-app.use(express.raw({ type: '*/*', limit: '10mb' }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname));
 
-//
-// ROUTES
-//
-app.use('/', indexRouter);
+
+app.use(express.static(__dirname));
 app.use('/users', usersRouter);
 
-//
-// UPLOAD ROUTE
-//
 app.post('/uploadFile', (req, res) => {
-  const fileData = req.body; // raw binary data
+  var fileData = req.body;
+  console.log(fileData)
   const originalFileName = req.headers['x-file-name'];
 
   if (!originalFileName) {
@@ -57,7 +46,7 @@ app.post('/uploadFile', (req, res) => {
     return res.status(400).send('Invalid file type');
   }
 
-  const imagesDir = path.join(__dirname, 'images');
+  const imagesDir = path.join(__dirname, 'userimages');
 
   // prevent overwrite (recommended)
   const uniqueName = Date.now() + '-' + fileName;
@@ -68,7 +57,7 @@ app.post('/uploadFile', (req, res) => {
     if (!fs.existsSync(imagesDir)) {
       fs.mkdirSync(imagesDir, { recursive: true });
     }
-
+    console.log("54")
     // save file
     fs.writeFileSync(savePath, fileData);
 
@@ -76,7 +65,6 @@ app.post('/uploadFile', (req, res) => {
       message: "File uploaded successfully",
       fileName: uniqueName
     });
-
   } catch (error) {
     res.status(500).send({
       message: "Failed to upload file",
@@ -85,20 +73,19 @@ app.post('/uploadFile', (req, res) => {
   }
 });
 
-//
-// 404 HANDLER
-//
+
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-//
-// ERROR HANDLER
-//
+// error handler
 app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
