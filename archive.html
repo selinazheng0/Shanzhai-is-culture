@@ -19,24 +19,32 @@
 </head>
 <body>
     <div class="topnav" id="navigation">
-        <a href="info.html">Info</a>
+        <a href="info.html">Shanzhai</a>
         <a href="archive.html" style="text-decoration: underline;">Gallery</a>
         <a href="references.html">References</a>
-      </div> 
-    <h1>This is a visual archive of the ephemera related to the shanzhai phenomenon. Unlike most online forums that feature shanzhai, this page is a place of appreciation instead of ridicule.</h1>
-   
-<input type="file" id="myFile" multiple onchange="showFileInfo()">
-<label for="myFile" class="custom-file-upload">
-  Select an image file
-</label>
-  <p id="demo"></p>
+      </div>
+   <div class="info-upload-container">
+    <div class="info-text">
+    <h1>This is a visual archive of the ephemera related to the shanzhai phenomenon. 
+        Unlike most online forums that feature shanzhai, this page is a place of appreciation instead of ridicule.</h1>
+    </div>
+    <div class="upload-container">
+    <details class="collapse-menu">
+        <summary class="collapse-toggle">Contribute to the gallery</summary>
 
-<button onclick="uploadFiles()"class="upload">Upload to Server</button>
-<!-- <p id="demo"></p> -->
-
-
+        <div class="collapse-content">
+            <input type="file" id="myFile" multiple onchange="showFileInfo()">
+            <label for="myFile" class="custom-file-upload">+</label>
+            <p id="demo"></p>
+            <input type="text" placeholder="Add image description" class="img-descrip">
+            <button onclick="uploadFiles()" class="upload">
+                Upload
+            </button>
+        </div>    
+        </div>
+    </details>
+    </div>
 <script>
-// SHOW FILE INFO (your original functionality, cleaned up)
 function showFileInfo() {
   const input = document.getElementById("myFile");
   let txt = "";
@@ -83,58 +91,74 @@ async function uploadFiles() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         alert("Files uploaded to server");
-    }).error((error) =>{
+    }).catch((error) =>{
         alert("Error: " + error);
     });
   }
 }
 </script>
+</div>
    <div class="gallery-grid">
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="gallery-img" src="userimages/fearofgodlyric.jpg" alt="alt text">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
         <div>
-            <a href="">
-                <img src="images/">
-            </a>
+            <img class="myImg" src="userimages/">
         </div>
+
+        <div id="imgModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImg">
+        <div id="caption"></div>
+        </div>
+    </div>
    </div>
-    <button class="homebutton">
+      <div class="homebutton">
         <a href="index.html">
-            山寨
+          <img src="images/shanzhai-logo-revised3.svg" alt="Home">
         </a>
-    </button>
+      </div>
+          <script>
+            
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const captionText = document.getElementById("caption");
+        const images = document.querySelectorAll(".gallery-img");
+        const closeBtn = document.querySelector(".close");
+        images.forEach(img => {
+            img.addEventListener("click", function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            });
+        });
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+        // Optional: close when clicking outside image
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </body>
 </html>

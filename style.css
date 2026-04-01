@@ -29,24 +29,36 @@ body{
     color: #EE1C25;
 }
 .labels {
-    position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     font-weight: 500;
-    font-size: 1.75em;
+    font-size: 2em;
     margin-left: 2rem;
     margin-top: 1.5rem;
 }
 
 .labels input[type=text] {
+    transform: none;
+    width: 18em;
+    margin-bottom: 0.5rem;
+
+    font-size: 1rem;
+    padding: 0.5em 1em; /* adds some space inside the input */
+    border-radius: 2em; /* rounded corners */
+    border: 1px solid #000000; /* optional: visible border */
+}
+@media (min-width: 768px) {
+  .labels {
+    display: block;
+  }
+
+  .labels input[type=text] {
     position: absolute;
     left: 50%;
-    font-size: 1rem;
     transform: translateX(-50%);
-    width: 20em;
-    padding: 0.5em 1em; /* adds some space inside the input */
-    border-radius: 1em; /* rounded corners */
-    border: 2px solid #000000; /* optional: visible border */
+    margin-bottom: 0;
+  }
 }
 .logo{
     display: flex;
@@ -64,6 +76,7 @@ body{
     display: block;
 }
 #myFile{
+    display: none;
   position: absolute;
   width: 1px;
   height: 1px;
@@ -74,25 +87,36 @@ body{
   border: 0;
 }
 .custom-file-upload{
+    display: inline-flex;
     margin: 1rem;
-    padding: 0.5rem;
+    padding: 1rem;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
     background-color: black;
     font-family: baskerville-urw, serif;
     color: white;
-    font-size: 1.1rem;
+    font-size: 2rem;
     font-weight: 400;
     border-radius: 6px;
     cursor: pointer;
 }
-p{
-    display: block;
-    left: 2rem;
-    font-size: large;
+.custom-file-upload:hover{
+    background-color: white;
+    border: 2px solid #000000;
+    color: #000000;
+}
+.img-descrip{
+    padding: 1rem;
+    margin: 1.5rem;
+    border-radius: 6px;
+}
+#demo{
+    margin: 1rem;
+    font-size: 1rem;
+    line-height: 1.2;
 }
 .upload{
-    display: block;
     margin: 1rem;
-    margin-top: 2rem;
     background-color: white;
     border-radius: 6px;
     padding: 0.5rem;
@@ -100,22 +124,39 @@ p{
     font-size: 1rem;
     cursor: pointer;
 }
+.collapse-menu {
+  margin: 1em 0;
+  display: block;
+}
+
+.collapse-toggle {
+    margin: 1.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.collapse-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1em;
+}
+
 .homebutton{
     position: fixed;
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
     right: 1.5rem;
     z-index: 2000;
 
-    width: 5rem;
-    height: 5rem;
-
     display: flex;            
     align-items: center;
     justify-content: center;
-
-    background-color: white;
-    font-size: 2rem;
-    font-family: "source-han-serif-tc", serif;
+}
+.homebutton img{
+    width: 12em;
+    height: auto;
+    display: block;
 }
 button a{
     color: black;
@@ -157,19 +198,49 @@ p{
     color: black;
     text-decoration: none;
 }
+.description2 p{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.description2 a{
+      display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.2;
+
+  height: calc(1.2em * 2); /* force 2 lines */
+  margin-bottom: 0.5em;
+
+  color: black;
+  text-decoration: none;
+}
 .item a{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.2;
+
     color: black;
     text-decoration: none;
 }
 .item a:hover{
     color: #EE1C25;
 }
+
 .Librarycarousel img{
-    max-width: auto;
+    max-width: 100%;
     height: 20rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
 .Librarycarousel::-webkit-scrollbar{
   display: none;
@@ -185,6 +256,26 @@ p{
         max-height: 13em;
     }
 }
+/* /* .description2 h2{
+/*     display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden; */
+/* }
+.description2 h2:hover::after {
+  content: attr(data-full);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 0.5em;
+  white-space: normal;
+  width: max-content;
+  max-width: 300px;
+  z-index: 10;
+}
+
 /* This is the old styling for the library page. 
 .Library{
     display: grid;
@@ -222,6 +313,15 @@ p{
     color: #EE1C25;
 } */
 /* Gallery Page styling here */
+.info-upload-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 600px){
+    .info-upload-container{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -250,10 +350,58 @@ p{
     padding: 1em;
 }
 .gallery-grid div img{
-    display: flex;
-    align-items: center;
-    width: 21rem;
+    width: 100%;
     height: 21rem;
+    object-fit: cover;
+}
+/* Modal background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+/* Modal image */
+.modal-content {
+    margin: auto;
+    margin-top: 10%;
+    display: block;
+    max-width: 50vh;
+    max-height: 50vw;
+    width: auto;
+    height: auto;
+}
+
+/* Caption (alt text) */
+#caption {
+    margin: 1rem auto;
+    text-align: center;
+    color: #ccc;
+    font-size: 1rem;
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Optional: make grid images responsive */
+.gallery-grid div img {
+    width: 100%;
+    height: 21rem;
+    object-fit: cover;
+    cursor: pointer;
 }
 /* Here is the spawn styling */
 .spawn-container {
@@ -266,7 +414,7 @@ p{
 }
 .spawned-img {
   position: absolute;
-  width: 30%;
+  width: 20%;
   pointer-events: auto;
   cursor: pointer;
   opacity: 0;

@@ -16,8 +16,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 const options = {
   type: 'application/octet-stream',
+  limit: '50mb',
 };
 app.use(bodyParser.raw(options));
+app.use(express.json({ limit: '50mb' }));
 
 app.use(logger('dev'));
 app.use(express.json());
