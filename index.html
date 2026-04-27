@@ -6,7 +6,7 @@
     <title>Shanzhai is culture</title>
     <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="https://use.typekit.net/agd2aaq.css">
-    <script>
+<script>
   (function(d) {
     var config = {
       kitId: 'agd2aaq',
@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="topnav">
-        <a href="info.html">Shanzhai</a>
+        <a href="info.html">Shanzhai is ...</a>
         <a href="archive.html">Gallery</a>
         <a href="references.html">References</a>
       </div>
@@ -32,44 +32,77 @@
 const container = document.querySelector('.spawn-container');
 
 const images = [
-  'images/nenergireup.jpg',
-  'images/shanzhai-lyric.avif',
-  'images/szphones.jpeg',
-  'images/progress.jpg',
-  'images/SA_market_2.jpg',
+  'images/red/phones.png',
+  'images/red/canal.png',
+  'images/red/blockprint.png',
+  'images/red/terracotts.png',
+  'images/red/putian.png',
+  'images/red/endlessgarment.png',
+  'images/red/SA_market_6.png',
 ];
 
-function spawnImage(src) {
+function spawnImage(src, delay = 0) {
   const img = document.createElement('img');
   img.src = src;
   img.classList.add('spawned-img');
 
-  // random position
-  img.style.top = Math.random() * 80 + '%';
-  img.style.left = Math.random() * 80 + '%';
+  let active = true;
 
   container.appendChild(img);
 
-  // trigger animation
-  setTimeout(() => img.classList.add('show'), 10);
+  function cycle() {
+    if (!active) return;
 
-  // remove on click
-  img.addEventListener('click', () => {
-    img.classList.remove('show');
-    img.classList.add('hide');
+    // random position
+    img.style.top = Math.random() * 80 + '%';
+    img.style.left = Math.random() * 80 + '%';
 
+    // trigger animation (fade in)
     setTimeout(() => {
-      img.remove();
-    }, 400);
+      if (!active) return;
+      img.classList.remove('hide');
+      img.classList.add('show');
+    }, 10);
+
+    // stay visible, then fade out
+    setTimeout(() => {
+      if (!active) return;
+
+      img.classList.remove('show');
+      img.classList.add('hide');
+
+      // after fade, repeat cycle
+      setTimeout(() => {
+        if (!active) return;
+        cycle();
+      }, 1000); // matches CSS transition
+
+    }, 3000); // visible duration (you had 5000)
+  }
+
+  // start cycle after delay
+  setTimeout(cycle, delay);
+
+  // stop on click
+  img.addEventListener('click', () => {
+    active = false;
+    img.remove();
   });
 }
 
-// spawn all on load
+// spawn all on load (same structure as yours)
 window.addEventListener('load', () => {
   images.forEach((src, i) => {
-    setTimeout(() => spawnImage(src), i * 200);
+    setTimeout(() => spawnImage(src, i * 400));
   });
 });
+
+/* // spawn all on load
+window.addEventListener('load', () => {
+  images.forEach((src, i) => {
+    setTimeout(() => spawnImage(src), i * 400);
+  });
+});*/
 </script>
 </body>
 </html>

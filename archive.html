@@ -19,28 +19,37 @@
 </head>
 <body>
     <div class="topnav" id="navigation">
-        <a href="info.html">Shanzhai</a>
+        <a href="info.html">Shanzhai is ...</a>
         <a href="archive.html" style="text-decoration: underline;">Gallery</a>
         <a href="references.html">References</a>
       </div>
    <div class="info-upload-container">
     <div class="info-text">
-    <h1>This is a visual archive of the ephemera related to the shanzhai phenomenon. 
-        Unlike most online forums that feature shanzhai, this page is a place of appreciation instead of ridicule.</h1>
+    <h1>This gallery is a living archive of the ephemera related to the shanzhai practices. 
+        Unlike most online forums that feature shanzhai, this page is a place of appreciation, inspiration, and reverence as opposed to ridicule.
+    </h1>
     </div>
     <div class="upload-container">
     <details class="collapse-menu">
-        <summary class="collapse-toggle">Contribute to the gallery</summary>
-
+        <summary class="collapse-toggle">Contribute to the Gallery</summary>
         <div class="collapse-content">
-            <input type="file" id="myFile" multiple onchange="showFileInfo()">
-            <label for="myFile" class="custom-file-upload">+</label>
+            <div class="upload-buttons">
+                <input type="file" id="myFile" multiple onchange="showFileInfo()">
+                <label for="myFile" class="custom-file-upload">+ Attach image file</label>
+                <button onclick="uploadFiles()" class="upload">Upload</button>
             <p id="demo"></p>
-            <input type="text" placeholder="Add image description" class="img-descrip">
-            <button onclick="uploadFiles()" class="upload">
-                Upload
-            </button>
+            </div>
+            <div id="upload-img-descrip">
+                <textarea 
+                placeholder="Add a short visual description of your image. Max 140 characters."
+                class="img-descrip"
+                maxlength="140"></textarea>    
+            </div> 
         </div>    
+    <h6>User uploaded content must be the uploader's own creation and/or a photograph taken by the uploader.
+    Do not upload images without the consent of the owner. Do not upload media containing any personally identifiable information.
+    Content must be relevant to shanzhai practices; if its relation is not clear through the image and description or otherwise deemed inappropriate it will be removed.
+    </h6>
         </div>
     </details>
     </div>
@@ -96,6 +105,24 @@ async function uploadFiles() {
     });
   }
 }
+
+function getImages(description){
+    let images = []
+    fetch('/listFiles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+      body: description
+    }}).then((res) => {
+        imageList = res.body;
+        imageList.forEach((image) => {
+            console.log(image.name)
+            console.log(image.description)
+        })
+
+    }).catch((error) =>{alert("Error: " + error);});
+}
+//getImages()
 </script>
 </div>
    <div class="gallery-grid">
@@ -103,25 +130,25 @@ async function uploadFiles() {
             <img class="gallery-img" src="userimages/fearofgodlyric.jpg" alt="alt text">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/1775677981803-bryan t shirt.jpg" alt="This was made during the Shanzhai Seminar. It utilizes the No. symbol from Chanel fragrances in a playful manner to say, no thank you.">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
         <div>
-            <img class="myImg" src="userimages/">
+            <img class="gallery-img" src="userimages/">
         </div>
 
         <div id="imgModal" class="modal">
@@ -133,7 +160,7 @@ async function uploadFiles() {
    </div>
       <div class="homebutton">
         <a href="index.html">
-          <img src="images/shanzhai-logo-revised3.svg" alt="Home">
+          <img src="images/shanzhai logo-filled.svg" alt="Home">
         </a>
       </div>
           <script>
@@ -145,7 +172,7 @@ async function uploadFiles() {
         const closeBtn = document.querySelector(".close");
         images.forEach(img => {
             img.addEventListener("click", function() {
-                modal.style.display = "block";
+                modal.style.display = "flex";
                 modalImg.src = this.src;
                 captionText.innerHTML = this.alt;
             });

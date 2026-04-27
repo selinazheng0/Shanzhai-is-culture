@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const dbAction = require('./db/dbAction.js')
+
 var app = express();
 
 // view engine setup
@@ -31,9 +33,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname));
 app.use('/users', usersRouter);
 
+app.post('/listFiles', (req, res) => {
+  try{
+    dbAction.getImages(req.body.description).then((images) => {
+          console.log('39')
+          console.log(images)
+          res.send(images);
+      }).catch((error) => {
+        console.log(42)
+          res.status(500).send(error);
+      });
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 app.post('/uploadFile', (req, res) => {
   var fileData = req.body;
-  console.log(fileData)
+
   const originalFileName = req.headers['x-file-name'];
 
   if (!originalFileName) {
@@ -59,7 +76,9 @@ app.post('/uploadFile', (req, res) => {
     if (!fs.existsSync(imagesDir)) {
       fs.mkdirSync(imagesDir, { recursive: true });
     }
-    console.log("54")
+
+    dbAction.createImage(uniqueName, "placeholder description")
+
     // save file
     fs.writeFileSync(savePath, fileData);
 
@@ -68,6 +87,8 @@ app.post('/uploadFile', (req, res) => {
       fileName: uniqueName
     });
   } catch (error) {
+    console.log(error)
+
     res.status(500).send({
       message: "Failed to upload file",
       error: error.message

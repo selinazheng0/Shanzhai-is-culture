@@ -10,6 +10,32 @@ body{
     font-style: normal;
     font-weight: 400;
 }
+h1{
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 1.5rem;
+}
+h2{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    margin: 1.5rem;
+
+}
+h3{
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 1.5rem;
+    margin-bottom: 3rem;
+}
+p{
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+}
+/* Navigation here */
 .topnav{
     background-color: black;
     font-style: normal;
@@ -19,47 +45,29 @@ body{
     height: 2em;
     display: flex;
     align-items: center;
+
+    position: relative;
+    z-index: 999;
 }
 .topnav a{
     color: white;
-    margin: 0.5em;
+    margin: 1rem;
     text-decoration: none;
 }
-.topnav a:hover{
+
+@media (max-width: 600px) {
+    .topnav a {
+        margin: 0.5rem;
+    }
+}
+a:hover{
     color: #EE1C25;
 }
-.labels {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-weight: 500;
-    font-size: 2em;
-    margin-left: 2rem;
-    margin-top: 1.5rem;
+a{
+    text-decoration: none;
+    color: #000000;
 }
-
-.labels input[type=text] {
-    transform: none;
-    width: 18em;
-    margin-bottom: 0.5rem;
-
-    font-size: 1rem;
-    padding: 0.5em 1em; /* adds some space inside the input */
-    border-radius: 2em; /* rounded corners */
-    border: 1px solid #000000; /* optional: visible border */
-}
-@media (min-width: 768px) {
-  .labels {
-    display: block;
-  }
-
-  .labels input[type=text] {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 0;
-  }
-}
+/* Landing page logo graphic*/
 .logo{
     display: flex;
     justify-content: center;
@@ -75,109 +83,253 @@ body{
     width: auto;
     display: block;
 }
+/* Info page/ Shanzhai is... */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  margin-top: 1.5rem;
+}
+.left a{
+    color: #EE1C25;
+}
+
+.right {
+  right: 0;
+  margin-top: 1.5rem;
+}
+.right div{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.right h1{
+    font-size: 1.5rem;
+    /* font-weight: 600; */
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+}
+.right h2{
+    margin-top: 1rem;
+}
+iframe{
+    margin: 1.5rem;
+}
+#postupgif{
+    margin-right: 1.5rem;
+    width: 22rem;
+    height: auto;
+}
+#gif-caption{
+    display: block;
+}
+@media (max-width: 900px) {
+
+  .split {
+    position: relative;   /* remove fixed */
+    width: 100%;          /* full width */
+    height: auto;         /* allow content to expand */
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .left,
+  .right {
+    margin-top: 0;
+  }
+  @media (max-width: 900px){
+    .left h3{
+        display: none;
+    }
+    }
+  .right div {
+    grid-template-columns: 1fr; /* stack grid items instead of 2 columns */
+  }
+  #postupgif{
+    margin-right: 1.5rem;
+    width: 20rem;
+    height: auto;
+}
+  #gif-caption{
+    display: block;
+    width: 22rem;
+    height: auto;
+    margin-left: 1.5rem;
+}
+    iframe{
+        width: 20rem;
+        height: 11.25rem;
+        margin-bottom: 6rem;
+    }
+}
+/* Gallery archive page */
 #myFile{
     display: none;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+    /* position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0; */
+}
+.upload-buttons{
+    display: flex;
+    flex-direction: column;
+    width: 12rem;
+    margin-left: 1rem;
+    gap: 0.75rem;
 }
 .custom-file-upload{
-    display: inline-flex;
-    margin: 1rem;
-    padding: 1rem;
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
+    padding: 0.75rem;
+    text-align: center;
     background-color: black;
     font-family: baskerville-urw, serif;
     color: white;
-    font-size: 2rem;
+    font-size: 1.25rem;
     font-weight: 400;
     border-radius: 6px;
+    cursor: pointer;
+    border: 1.75px solid #000000;
+}
+.upload{
+    background-color: white;
+    border-radius: 6px;
+    border: 1.75px solid #000000;
+    padding: 0.75rem;
+    width: 100%;
+    /* padding-left: 3rem;
+    padding-right: 3rem; */
+    font-family: baskerville-urw, serif;
+    font-size: 1.2rem;
     cursor: pointer;
 }
 .custom-file-upload:hover{
     background-color: white;
-    border: 2px solid #000000;
+    border: 1.75px solid #000000;
     color: #000000;
+}
+#upload-img-descrip{
+    width: 63%;
 }
 .img-descrip{
     padding: 1rem;
-    margin: 1.5rem;
-    border-radius: 6px;
+    height: 5.1rem;
+    width: 100%;
+    font-family: baskerville-urw, serif;
+    border: 1.75px solid #000000;
+    /* padding-bottom: 6rem; */
+    margin: 0;
+    border-radius: 7px;
+}
+@media (max-width:900px){
+    .img-descrip{
+        width: 60%;
+        height: 7.75rem;
+    }
 }
 #demo{
-    margin: 1rem;
     font-size: 1rem;
     line-height: 1.2;
-}
-.upload{
-    margin: 1rem;
-    background-color: white;
-    border-radius: 6px;
-    padding: 0.5rem;
-    font-family: baskerville-urw, serif;
-    font-size: 1rem;
-    cursor: pointer;
+    margin: 0;
+    margin-bottom: 0.25rem;
 }
 .collapse-menu {
-  margin: 1em 0;
+  margin: 0.5rem 0;
+  margin-top: 1.5em;
   display: block;
 }
-
+.collapse-menu h6{
+    font-weight: 500;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0;
+}
+.upload-container{
+    margin-left: 1rem;
+}
 .collapse-toggle {
-    margin: 1.5rem;
+    /* margin: 1.5rem; */
   cursor: pointer;
   font-weight: 500;
   font-size: 1.5rem;
 }
-
 .collapse-content {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: stretch;
+    gap: 0.75rem;
     margin-top: 1em;
 }
-
+button a{
+    color: black;
+    text-decoration: none;
+}
+/* Logo Home button */
 .homebutton{
     position: fixed;
     bottom: calc(1.5rem + env(safe-area-inset-bottom));
     right: 1.5rem;
-    z-index: 2000;
+    z-index: 999;
 
     display: flex;            
     align-items: center;
     justify-content: center;
 }
 .homebutton img{
-    width: 12em;
+    width: 15em;
     height: auto;
     display: block;
 }
-button a{
-    color: black;
-    text-decoration: none;
+/* Library referencce page */
+/* References Library Source page */
+#books{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    font-size: 2em;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
 }
+.labels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    font-size: 2em;
+    margin-left: 2rem;
+}
+.labels input[type=text] {
+    transform: none;
+    width: 18em;
+    margin-bottom: 0.5rem;
 
-h1{
-    font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    margin: 1.5rem;
-}
-h2{
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.2;
-}
-p{
     font-size: 1rem;
-    line-height: 1.2;
-    font-weight: 400;
+    padding: 0.5em 1em; /* adds some space inside the input */
+    border-radius: 2em; /* rounded corners */
+    border: 1px solid #000000; /* optional: visible border */
+}
+@media (min-width: 768px) {
+  .labels {
+    display: block;
+  }
+.labels input[type=text] {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 0;
+  }
 }
 .Librarycarousel{
     display: flex;
@@ -203,29 +355,28 @@ p{
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-top: 0.25rem;
 }
 .description2 a{
       display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.2;
-
   height: calc(1.2em * 2); /* force 2 lines */
-  margin-bottom: 0.5em;
-
+  /* margin-bottom: 0.25em; */
   color: black;
   text-decoration: none;
 }
+/* item refers to the inidividual block for work that I'm linking */
 .item a{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
 
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.2rem;
     line-height: 1.2;
 
@@ -235,7 +386,6 @@ p{
 .item a:hover{
     color: #EE1C25;
 }
-
 .Librarycarousel img{
     max-width: 100%;
     height: 20rem;
@@ -349,7 +499,7 @@ p{
 .gallery-grid div{
     padding: 1em;
 }
-.gallery-grid div img{
+.gallery-grid img{
     width: 100%;
     height: 21rem;
     object-fit: cover;
@@ -358,44 +508,51 @@ p{
 .modal {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.9);
-}
 
-/* Modal image */
-.modal-content {
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+}
+#modalImg {
     margin: auto;
-    margin-top: 10%;
     display: block;
-    max-width: 50vh;
-    max-height: 50vw;
+    max-width: 70vw;
+    max-height: 70vh;
+
     width: auto;
     height: auto;
 }
-
 /* Caption (alt text) */
 #caption {
-    margin: 1rem auto;
     text-align: center;
-    color: #ccc;
-    font-size: 1rem;
+    font-family: baskerville-urw, serif;
+    font-weight: 400;
+    color: white;
+    font-size: 1.2rem;
 }
 
 /* Close button */
 .close {
     position: absolute;
-    top: 20px;
-    right: 35px;
+    top: 1rem;
+    right: 4rem;
     color: white;
-    font-size: 2rem;
+    font-size: 4rem;
     cursor: pointer;
 }
-
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
 /* Optional: make grid images responsive */
 .gallery-grid div img {
     width: 100%;
@@ -403,6 +560,7 @@ p{
     object-fit: cover;
     cursor: pointer;
 }
+
 /* Here is the spawn styling */
 .spawn-container {
   position: fixed;
@@ -414,12 +572,24 @@ p{
 }
 .spawned-img {
   position: absolute;
-  width: 20%;
+  height: 25%;
   pointer-events: auto;
   cursor: pointer;
   opacity: 0;
-  transform: scale(0.5);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(1);
+  transition: transform 1s ease, opacity 1s ease;
+}
+@media (max-width: 700px){
+    .spawned-img{
+        position: absolute;
+        width: 25%;
+        height: auto;
+        pointer-events: auto;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(1);
+        transition: transform 1s ease, opacity 1s ease;
+    }
 }
 .spawned-img.show {
   opacity: 1;
