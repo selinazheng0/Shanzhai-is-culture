@@ -14,26 +14,11 @@ function createImage(name, description) {
 
 function getImages(description) {
     var val = new RegExp(".*"+description+".*");
-    if (description === ""){
-        return new Promise((resolve, reject) => {
-            Image.find().then((images) => {
-                console.log('found')
-                console.log(images)
-                resolve(images);
-            }).catch((error) => {
-                console.log('err')
-                console.log(error)
-                reject("getImage: " + JSON.stringify(error));
-            });
-        });
+    console.log(description)
+    if (description === undefined || description === ""){
+        return Image.find();
     } else {
-        return new Promise((resolve, reject) => {
-            Image.find({description : val}).then(images => {
-                resolve(images);
-            }).catch(error => {
-                reject("getImage: " + JSON.stringify(error));
-            });
-        });
+        return Image.find({description : val});
     }
 }
 

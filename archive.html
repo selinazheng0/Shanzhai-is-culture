@@ -41,6 +41,7 @@
             </div>
             <div id="upload-img-descrip">
                 <textarea 
+                id="img-description"
                 placeholder="Add a short visual description of your image. Max 140 characters."
                 class="img-descrip"
                 maxlength="140"></textarea>    
@@ -90,7 +91,8 @@ async function uploadFiles() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/octet-stream',
-        'x-file-name': file.name
+        'x-file-name': file.name,
+        'x-file-description': document.getElementById("img-description").value,
       },
       body: arrayBuffer
     })
@@ -105,58 +107,58 @@ async function uploadFiles() {
     });
   }
 }
-
-function getImages(description){
-    let images = []
-    fetch('/listFiles', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-      body: description
-    }}).then((res) => {
-        imageList = res.body;
-        imageList.forEach((image) => {
-            console.log(image.name)
-            console.log(image.description)
-        })
-
-    }).catch((error) =>{alert("Error: " + error);});
-}
 //getImages()
 </script>
 </div>
-   <div class="gallery-grid">
+   <div class="gallery-grid" id="gallery-grid">
         <div>
             <img class="gallery-img" src="userimages/fearofgodlyric.jpg" alt="alt text">
         </div>
         <div>
             <img class="gallery-img" src="userimages/1775677981803-bryan t shirt.jpg" alt="This was made during the Shanzhai Seminar. It utilizes the No. symbol from Chanel fragrances in a playful manner to say, no thank you.">
         </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-        <div>
-            <img class="gallery-img" src="userimages/">
-        </div>
-
         <div id="imgModal" class="modal">
             <span class="close">&times;</span>
             <img class="modal-content" id="modalImg">
         <div id="caption"></div>
         </div>
     </div>
+
+    <script>
+        function getImages(description){
+            let images = []
+            let json = fetch('/listFiles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+            body: description
+            }}).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                console.log(data);
+                // Do something with last chunk of data then exit reader
+                let galleryGrid = document.getElementById("gallery-grid");
+                data.forEach((image) => {
+                    console.log(image.name)
+                    console.log(image.description)
+
+                    let div = document.createElement("div");
+                    let img = document.createElement("img");
+                    img.classList.add("gallery-img");
+                    img.setAttribute("src", "userimages/" + image.name);
+                    img.setAttribute("alt", image.description);
+                    div.prepend(img);
+                    galleryGrid.prepend(div);
+                    img.addEventListener("click", function() {
+                        modal.style.display = "flex";
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                    });
+                })
+            });
+        }
+        getImages();
+    </script>
    </div>
       <div class="homebutton">
         <a href="index.html">

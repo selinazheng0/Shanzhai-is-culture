@@ -35,13 +35,11 @@ app.use('/users', usersRouter);
 
 app.post('/listFiles', (req, res) => {
   try{
-    dbAction.getImages(req.body.description).then((images) => {
-          console.log('39')
-          console.log(images)
-          res.send(images);
+    dbAction.getImages().then((images) => {
+        console.log(images)
+        res.send(images);
       }).catch((error) => {
-        console.log(42)
-          res.status(500).send(error);
+        res.status(500).send(error);
       });
   } catch (error) {
     console.log(error)
@@ -52,6 +50,7 @@ app.post('/uploadFile', (req, res) => {
   var fileData = req.body;
 
   const originalFileName = req.headers['x-file-name'];
+  const description = req.headers['x-file-description'];
 
   if (!originalFileName) {
     return res.status(400).send('Missing file name');
@@ -77,7 +76,7 @@ app.post('/uploadFile', (req, res) => {
       fs.mkdirSync(imagesDir, { recursive: true });
     }
 
-    dbAction.createImage(uniqueName, "placeholder description")
+    dbAction.createImage(uniqueName, description)
 
     // save file
     fs.writeFileSync(savePath, fileData);
@@ -112,5 +111,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/images/red'));
 
 module.exports = app;
