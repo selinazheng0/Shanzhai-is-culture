@@ -149,6 +149,11 @@ async function uploadFiles() {
                     img.setAttribute("alt", image.description);
                     div.prepend(img);
                     galleryGrid.prepend(div);
+                    img.addEventListener("click", function() {
+                        modal.style.display = "flex";
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                    });
                 })
             });
         }
