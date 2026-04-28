@@ -112,4 +112,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/images/red'));
+
 module.exports = app;
