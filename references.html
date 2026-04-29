@@ -29,8 +29,12 @@
       <!-- <input type="text" placeholder="Search Catalogue"> -->
       Published Works
     </div>
+    <div class="carousel-wrapper">
+  <button class="carousel-btn prev">❮</button>
     <div class="Librarycarousel">
+
       <div class="item"> 
+        
         <a href="https://www.sourcetype.com/store/17341/unlicensed-bootlegging-as-creative-practice" target="_blank"> <img src="images/unliscensed.jpg"></a>
       <div class="description2">
       <a href="https://www.sourcetype.com/store/17341/unlicensed-bootlegging-as-creative-practice" target="_blank" title="">Bootlegging as Creative Practice</a>
@@ -87,8 +91,13 @@
         <p>Boon, argues copying is fundamental to being human, worth celebrating, and key to understanding ourselves and the world.</p>
       </div>
     </div>
+        <button class="carousel-btn next">❯</button>
+</div>
   </div>
+
     <div class="labels" id="articles">Web Articles</div>
+    <div class="carousel-wrapper">
+  <button class="carousel-btn prev">❮</button>
     <div class="Librarycarousel">
     <div class="item">
       <a href="https://www.017blog.com/counterfeit-goods" target="_blank"><img src="images/apollo.avif"></a>
@@ -133,10 +142,13 @@
         <p>Dazed critiques the once popular ironic fashion fake that at blurred lines of authenticity and imitation in fashion.</p>
       </div>
     </div>
+  <button class="carousel-btn next">❯</button>
+</div>
   </div>
 </div>
-
 <div class="labels" id="articles">Interviews</div>
+<div class="carousel-wrapper">
+  <button class="carousel-btn prev">❮</button>
   <div class="Librarycarousel">
     <div class="item">
       <a href="https://walkerart.org/magazine/bootlegging-shanzhai-lyric" target="_blank"> <img src="images/nenergireup.jpg"></a>
@@ -162,8 +174,8 @@
       <div class="item">
       <a href="https://disnovation.org/doc/Disnovation_interview_switch_eng_02.pdf" target="_blank"><img src="images/SA_2019_landscape2.jpg"></a>
       <div class="description2">
-        <a href="https://disnovation.org/doc/Disnovation_interview_switch_eng_02.pdf" target="_blank" title="">Interview with Disinovation.org</a>
-        <p>Disinovation.org merges art, research, and hacking into experimental works, known for the publication The Pirate Book.</p>
+        <a href="https://disnovation.org/doc/Disnovation_interview_switch_eng_02.pdf" target="_blank" title="">Interview with Disnovation.org</a>
+        <p>Disnovation.org merges art, research, and hacking into experimental works, known for the publication The Pirate Book.</p>
       </div>
     </div>
     <div class="item">
@@ -173,8 +185,31 @@
         <p>Interview with Ming Lin and Alexandra Tatarsky, exploring bootleg fashion, and counterfeit economies as poetic research.</p>
       </div>
     </div>
+      <button class="carousel-btn next">❯</button>
+</div>
   </div>
 </div>
+<script>
+document.querySelectorAll(".carousel-wrapper").forEach(wrapper => {
+  const carousel = wrapper.querySelector(".Librarycarousel");
+  const nextBtn = wrapper.querySelector(".next");
+  const prevBtn = wrapper.querySelector(".prev");
+
+  nextBtn.addEventListener("click", () => {
+    carousel.scrollBy({
+      left: 320,
+      behavior: "smooth"
+    });
+  });
+
+  prevBtn.addEventListener("click", () => {
+    carousel.scrollBy({
+      left: -320,
+      behavior: "smooth"
+    });
+  });
+});
+</script>
     <br><br><br><br>
 
       <div class="homebutton">
@@ -182,5 +217,6 @@
           <img src="images/shanzhai logo-filled.svg" alt="Home">
         </a>
       </div>
+      
 </body>
 </html>

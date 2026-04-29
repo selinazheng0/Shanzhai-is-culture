@@ -406,6 +406,46 @@ button a{
         max-height: 13em;
     }
 }
+.carousel-wrapper{
+    position: relative;
+}
+
+.carousel-btn{
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    color: black;
+
+    z-index: 10;
+
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 3.5em;
+    line-height: 1;
+    padding: 0;
+
+text-shadow:
+    -0.5px -0.5px 0 white,
+     0px   -0.5px 0 white,
+     0.5px -0.5px 0 white,
+    -0.5px  0px   0 white,
+     0.5px  0px   0 white,
+    -0.5px  0.5px 0 white,
+     0px    0.5px 0 white,
+     0.5px  0.5px 0 white
+}
+
+.carousel-btn.prev{
+    left: 0.45rem;
+}
+
+.carousel-btn.next{
+    right: 0.45rem;
+}
+.carousel-btn:hover{
+    color: #EE1C25;
+}
 /* /* .description2 h2{
 /*     display: -webkit-box;
     -webkit-line-clamp: 2;
